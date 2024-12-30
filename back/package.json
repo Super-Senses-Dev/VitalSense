@@ -1,0 +1,11 @@
+{
+  "name": "vital-sense-back",
+  "version": "1.0.0",
+  "description": "The backend (Node.js/Express.js) of Vital Sense",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,34 @@
+<mat-sidenav-container autosize>
+    <mat-sidenav #sideNav [mode]="modeMenu" [fixedInViewport]="true" [opened]="showMenu">
+        <div class="app-logo">
+            <img src="images/logo.png" alt="logo">
+        </div>
+
+        <mat-nav-list [disableRipple]="true">
+            <a mat-list-item routerLink="/pictures" (click)="onMenuClick()" routerLinkActive
+                #pictures="routerLinkActive" [ngClass]="{'link-active': pictures.isActive}">
+                <img src="icons/thermo-pic-icon.png" alt="pictures">
+                <span>{{'pictures' | translate}}</span>
+            </a>
+            <a mat-list-item routerLink="/profile" (click)="onMenuClick()" routerLinkActive #profile="routerLinkActive"
+                [ngClass]="{'link-active': profile.isActive}">
+                <img src="icons/profile-icon.png" alt="profile">
+                <span>{{'Parent and child profile' | translate}}</span>
+            </a>
+            <a mat-list-item routerLink="/chart" (click)="onMenuClick()" routerLinkActive #chart="routerLinkActive"
+                [ngClass]="{'link-active': chart.isActive}">
+                <img src="icons/chart-icon.png" alt="chart">
+                <span>{{'Chart and export' | translate}}</span>
+            </a>
+            <a mat-list-item routerLink="/settings" (click)="onMenuClick()" routerLinkActive
+                #settings="routerLinkActive" [ngClass]="{'link-active': settings.isActive}">
+                <img src="icons/settings-icon.png" alt="settings">
+                <span>{{'Settings' | translate}}</span>
+            </a>
+        </mat-nav-list>
+
+    </mat-sidenav>
+
+
+
+</mat-sidenav-container>

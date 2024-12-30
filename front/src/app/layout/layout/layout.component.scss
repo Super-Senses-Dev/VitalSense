@@ -1,0 +1,53 @@
+mat-sidenav {
+    background-color: white;
+    border-right: none;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+
+    .app-logo {
+        margin-top: 30px;
+        img {
+            width: 240px;
+            height: auto;
+        }
+    }
+
+    mat-nav-list {
+        margin-top: 40px;
+
+        a {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            img {
+                vertical-align: middle;
+                width: 24px;
+                height: auto;
+                max-height: 24px;
+                margin-right: 10px;
+                filter: invert(29%) sepia(82%) saturate(6%) hue-rotate(22deg) brightness(96%) contrast(79%); // Invert to gray
+            }
+            &:not(:last-child) {
+                margin-bottom: 30px;
+            }
+            &:hover {
+                background-color: #c3b3f03d;
+            }
+
+            &.link-active {
+                background: #f9eafa;
+                // Make the color blue purple gradient
+                span {
+                    background-image: linear-gradient(120deg, #6932f5, #aa0dda);
+                    color: transparent;
+                    background-clip: text;
+                }
+
+                img {
+                    filter: invert(16%) sepia(95%) saturate(5428%) hue-rotate(258deg) brightness(102%) contrast(92%);
+                }
+            }
+        }
+    }
+}
