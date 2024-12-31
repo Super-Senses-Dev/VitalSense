@@ -1,8 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+* {
+    font-family: "Nunito", sans-serif;
+}
 
 body {
-    font-family: "Nunito", sans-serif;
     background-color: #f6f8fb;
     margin: 0;
 }

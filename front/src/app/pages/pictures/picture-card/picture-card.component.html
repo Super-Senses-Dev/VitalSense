@@ -1,0 +1,68 @@
+<div class="img-card" [ngClass]="{'manual': isManualAdd}">
+    <div class="row">
+        <!-- Picture with delete button (and error badge) -->
+        <div *ngIf="!isManualAdd" class="col-sm-6">
+            <div class="img-container" [ngClass]="{'manual': editedThermo?.isManual}"
+                [ngStyle]="{'background-image':'url(' + editedThermo?.imgBase64 + ')'}">
+                <button class="delete-btn" (click)="onDelete()" title="{{'delete' | translate}}">
+                    <img src="icons/delete.png">
+                </button>
+                <div class="error-badge" *ngIf="!editedThermo?.isDetected && !editing && !editedThermo?.isManual">
+                    <img src="icons/incorrect.png" width="20">
+                    <div class="text-center">
+                        {{'Cant detect' | translate}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Measures details -->
+        <div [ngClass]="{'col-sm-6': !isManualAdd, 'col-sm-12': isManualAdd}">
+            <div class="img-details" [ngClass]="{'manual': isManualAdd}">
+                <div class="img-details-header">
+                    <div class="d-flex justify-content-between">
+                        <div class="measure-date">
+                            <input [disabled]="!editing" type="datetime-local" class="measure-date"
+                                [(ngModel)]="formattedMeasureDate" (ngModelChange)="onMeasureDateChange($event)">
+                        </div>
+                        <div *ngIf="!editing" class="edit-btn-container">
+                            <button class="edit-button" title="{{'edit' | translate}}" (click)="onEditClicked()">
+                                ✏️
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="editedThermo && editedThermo.temperature" class="measures-container">
+                    <div class="d-flex justify-content-between measure-row">
+                        <div class="measure-title">
+                            {{'temperature' | translate}}
+                        </div>
+                        <div class="measure-value">
+                            <input [disabled]="!editing" type="number" [(ngModel)]="editedThermo.temperature"
+                                (ngModelChange)="onMeasureValueChange($event)">
+                            <img *ngIf="editedThermo.temperature == null" src="icons/incorrect.png">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Save and cancel buttons -->
+                <div *ngIf="!isManualAdd" class="bottom-btn-container">
+                    <div class="d-flex justify-content-between" *ngIf="editing">
+                        <button class="cancel-btn" (click)="onResetClicked()">
+                            {{'cancel' |translate }}
+                        </button>
+                        <button class="save-btn" (click)="doEditThermo()">
+                            <span *ngIf="!editLoading"> {{'save' |translate }}</span>
+                            <div *ngIf="editLoading" class="spinner-border" role="status"
+                                style="height: 20px; width: 20px; color: inherit;">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

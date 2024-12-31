@@ -1,0 +1,4 @@
+PORT=3257
+
+# API key to access the open AI model (Replace it with your own key)
+OPENAI_TOKEN=

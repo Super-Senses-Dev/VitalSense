@@ -1,0 +1,241 @@
+.img-card {
+    height: 305px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0px 0px 11.4px 0px #00000021;
+    &.manual {
+        height: 260px;
+    }
+}
+
+// Make all bootstrap cols the same height
+.img-card .row {
+    height: 100%;
+}
+
+.img-container {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    background-color: #e6e7e9;
+
+    &.manual {
+        background-size: 30%;
+    }
+}
+
+.delete-btn {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #ffe1e1;
+    border: none;
+    padding: 4px 10px;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}
+
+.error-badge {
+    position: absolute;
+    top: calc(50% - 50px);
+    width: 100%;
+    height: 100px;
+    background: #ff3a3a59;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    color: #ff2024;
+    text-shadow: 0 0 3px #FFF, 0 0 5px #FFF;
+
+    img {
+        width: 32px;
+        height: auto;
+    }
+}
+
+.img-details {
+    height: 100%;
+    width: 100%;
+    padding: 20px 20px 20px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    &.manual {
+        padding: 20px;
+    }
+}
+
+.img-details-header,
+.measures-container {
+    flex-grow: 1;
+}
+
+.bottom-btn-container {
+    margin-top: auto;
+}
+
+.measure-date {
+    color: #a0a4a8;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    margin-top: 8px;
+    background: none;
+    border-bottom: 1px solid #e4e5e6;
+
+    &::-webkit-calendar-picker-indicator {
+        opacity: 0.6;
+        margin-left: -32px;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:disabled {
+        background: none;
+        border: none;
+        &:hover {
+            cursor: inherit;
+        }
+    }
+}
+
+.edit-button-container {
+    flex: 1;
+}
+
+.edit-button {
+    background: none;
+    border: none;
+    width: 20px;
+    height: 20px;
+    padding: 0px;
+}
+
+.measures-container {
+    margin-top: 20px;
+}
+
+.measure-row {
+    margin-bottom: 20px;
+}
+
+.measure-row > div {
+    flex: 1;
+}
+
+
+.measure-value {
+    text-align: end;
+    align-self: center;
+    position: relative;
+    input {
+        width: 100%;
+        max-width: 70px;
+        border: none;
+        border-bottom: 1px solid #e4e5e6;
+        background: none;
+        font-size: 18px;
+        font-weight: 700;
+        color: #52575c;
+        &:disabled {
+            border-bottom: none;
+            background: none;
+        }
+    }
+    img {
+        position: absolute;
+        width: 16px;
+        right: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+}
+
+.measure-unit {
+    font-size: 18px;
+    font-weight: 700;
+    color: #52575c;
+    text-align: end;
+}
+
+.cancel-btn,
+.save-btn {
+    font-size: 16px;
+    border: none;
+    background: none;
+    border-radius: 10px;
+    padding: 4px 16px;
+    flex: 1;
+}
+
+.cancel-btn {
+    color: #1a367f;
+    border: 1px solid #1a367f;
+    margin-right: 20px;
+}
+
+.save-btn {
+    color: white;
+    background: #1a367f;
+}
+
+// ------------------
+// Responsive design
+// ------------------
+
+@media (max-width: 1413px) and (min-width: 1200px) {
+    .cancel-btn,
+    .save-btn {
+        padding: 4px 8px;
+        font-size: 14px;
+    }
+    .cancel-btn {
+        margin-right: 5px;
+    }
+}
+
+@media (max-width: 622px) and (min-width: 576px) {
+    .cancel-btn,
+    .save-btn {
+        padding: 4px 8px;
+        font-size: 14px;
+    }
+    .cancel-btn {
+        margin-right: 5px;
+    }
+}
+
+@media (max-width: 576px) {
+    .img-card {
+        height: inherit;
+    }
+
+    .img-container {
+        height: 300px;
+    }
+
+    .img-details {
+        padding: 20px;
+        height: inherit;
+    }
+}

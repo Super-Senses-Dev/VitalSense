@@ -1,1 +1,13 @@
-<p>not-found works!</p>
+<div class="d-flex justify-content-center align-items-center flex-column container-p">
+    <div class="wave-top"></div>
+    <div class="wave-bottom-2"></div>
+
+    <span class="number">
+        404
+    </span>
+    <p class="d-flex flex-column"> {{ 'error404.title' | translate }}
+    </p>
+
+    <button (click)="returnToHome()"> {{ 'error404.button' | translate }} </button>
+    <div class="wave-bottom"></div>
+</div>

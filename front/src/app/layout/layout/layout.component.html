@@ -4,11 +4,12 @@
             <img src="images/logo.png" alt="logo">
         </div>
 
+        <!-- The menu -->
         <mat-nav-list [disableRipple]="true">
             <a mat-list-item routerLink="/pictures" (click)="onMenuClick()" routerLinkActive
                 #pictures="routerLinkActive" [ngClass]="{'link-active': pictures.isActive}">
                 <img src="icons/thermo-pic-icon.png" alt="pictures">
-                <span>{{'pictures' | translate}}</span>
+                <span>{{'Pictures' | translate}}</span>
             </a>
             <a mat-list-item routerLink="/profile" (click)="onMenuClick()" routerLinkActive #profile="routerLinkActive"
                 [ngClass]="{'link-active': profile.isActive}">
@@ -28,6 +29,27 @@
         </mat-nav-list>
 
     </mat-sidenav>
+
+    <mat-sidenav-content>
+
+        <!-- App bar -->
+        <mat-toolbar>
+            <mat-toolbar-row>
+                <button class="toggle-sidenav-btn" (click)="showMenu = !showMenu">
+                    <img src="icons/menu.png" alt="menu">
+                </button>
+                <span class="page-title">{{pageTitle | translate}}</span>
+            </mat-toolbar-row>
+        </mat-toolbar>
+
+        <!-- The content -->
+        <main>
+            <div class="container-fluid">
+                <router-outlet></router-outlet>
+            </div>
+        </main>
+
+    </mat-sidenav-content>
 
 
 

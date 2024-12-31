@@ -5,7 +5,8 @@ import { routes } from './app.routes';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { provideAnimations } from '@angular/platform-browser/animations';
+//import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (http: HttpClient) =>
   new TranslateHttpLoader(http, './i18n/', '.json');
@@ -24,6 +25,7 @@ export const appConfig: ApplicationConfig = {
       }
     }),
     { provide: LocationStrategy, useClass: HashLocationStrategy },
-    provideAnimations()
+    //provideAnimations(),
+    provideAnimationsAsync(),
   ]
 };

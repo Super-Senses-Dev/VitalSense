@@ -1,36 +1,40 @@
-hexToInt = (hex) => {
-    // Ensure the hex string has an even length
-    if (hex.length % 2 !== 0) {
-        throw new Error('Invalid hex string');
-    }
-    // Convert the hex string to a buffer
-    const buffer = new ArrayBuffer(7); // 4 bytes for a 32-bit float
-    const view = new DataView(buffer);
-    for (let i = 0; i < hex.length; i += 2) {
-        const byte = parseInt(hex.substr(i, 2), 16);
-        view.setUint8(i / 2, byte);
-    }
-    // Read the float from the buffer in big-endian format
-    const float = view.getUint32(0, true); // true for little-endian
-    return float;
-}
+const express = require('express');
+require('dotenv').config();
+const cors = require('cors');
+const app = express();
+const requestLimit = '50mb'
+app.use(express.json({ limit: requestLimit }));
+app.use(express.urlencoded({ extended: true, limit: requestLimit }));
 
-console.log(hexToInt('049ce832986580'));
+// Limit the api requests to prevent abuse
+const rateLimit = require("express-rate-limit");
+const routes = require('./routes');
+
+const limiter = rateLimit({
+    windowMs: 10 * 60 * 1000, // 10 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Don't send the `X-RateLimit-*` headers
+});
+
+app.use(limiter);
+
+const port = process.env.PORT || 3257;
+
+app.use(cors({
+    credentials: true,
+    origin: '*', // Todo: change this to your frontend domain
+    allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, device-unique-id,content-language, Content-Disposition, time-zone',
+}));
+
+app.get('/', (req, res) => {
+    res.send('Vital sense demo is running');
+});
+
+app.use('/extract', routes.extractRoutes);
 
 
-intToHex = (int) => {
-    // Convert the float to a buffer in big-endian format
-    const buffer = new ArrayBuffer(7); // 4 bytes for a 32-bit float
-    const view = new DataView(buffer);
-    view.setUint32(0, int, true); // true for little-endian
-    // Convert the buffer to a hex string
-    let hex = '';
-    for (let i = 0; i < buffer.byteLength; i++) {
-        const byte = view.getUint8(i).toString(16).padStart(2, '0');
-        hex += byte;
-    }
-    return hex;
-}
-
-console.log(intToHex(854105092));
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
 

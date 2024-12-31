@@ -1,1 +1,92 @@
-<p>pictures works!</p>
+<div class="images-container">
+    <div class="images-header d-flex justify-content-between flex-wrap-reverse">
+        <!-- Filters -->
+        <div class="form-group">
+            <label for="status">{{'status' | translate}}</label>
+            <select id="status" class="form-select" [(ngModel)]="imageIsDetectedFilter">
+                <option value="">{{'all_images'| translate}}</option>
+                <option [value]="true">
+                    <span class="ms-1">✔️ {{'detected'| translate}}</span>
+                </option>
+                <option [value]="false">
+                    <span class="ms-2">❌ {{'undetected'| translate}}</span>
+                </option>
+            </select>
+        </div>
+
+        <!-- Add images button -->
+        <div class="actions">
+            <label class="add-button">
+                <span>✨</span>
+                <span>{{'add_images'| translate}}</span>
+                <input type="file" (change)="onAddPictures($event)" multiple accept=".jpg,.jpeg,.png"
+                    style="display: none;" [disabled]="isDetecting || isPreProcessing">
+            </label>
+        </div>
+    </div>
+
+    <div class="images-list">
+
+        <!-- Loading -->
+        @if (loadingPictures) {
+        <div class="loading-layer">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        }
+
+        <!-- Empty photos drop zone -->
+        @if (picturesList.length == 0 && !loadingPictures) {
+        <div class="empty-layer-drop-zone">
+            <input type="file" (change)="onAddPictures($event)" (click)="onDropZoneFileClick($event)" multiple
+                accept=".jpg,.jpeg,.png" [disabled]="isDetecting || isPreProcessing">
+            <img src="icons/empty-picture.png">
+            <div class="title">{{'no_images'| translate}}</div>
+            <div class="subtitle">{{'add_images_to_start_detection'| translate}}</div>
+            <div class="description">
+                {{'images.drop_images_here'| translate}}
+            </div>
+        </div>
+        }
+
+        <!-- Show query progress bar when the images are being preprocessed-->
+        @if(isPreProcessing) {
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <mat-progress-bar mode="query"></mat-progress-bar>
+            <div class="ms-2 progress-label"> {{'preparing'| translate}}</div>
+        </div>
+        }
+
+        <!-- Show determinate progress bar when the images are being sent to server -->
+        @if(isDetecting) {
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <mat-progress-bar mode="determinate"
+                [value]="(picturesDone / picturesWaitingForDetection) * 100"></mat-progress-bar>
+            <div class="ms-2 progress-label">
+                {{picturesDone}} / {{picturesWaitingForDetection}} {{'processed_picture'| translate}}
+            </div>
+        </div>
+        }
+
+        <!-- Pictures list -->
+        <div class="row">
+            @for (picture of picturesList; track picture) {
+            <div *ngIf="shouldDisplayPicture(picture)" class="col-xl-6 mb-4">
+                <app-picture-card [thermo]="picture" (delete)="onDeletePicture($event)"
+                    (edit)="onEditPicture($event)"></app-picture-card>
+            </div>
+            }
+        </div>
+
+        <!-- Empty filters results -->
+        @if (picturesList.length > 0 && isEmptyFilter()) {
+        <div class="empty-layer">
+            <img src="icons/empty-picture.png">
+            <div class="title">{{'no_results'| translate}}</div>
+            <div class="subtitle">{{'no_images_match_filters'| translate}}</div>
+        </div>
+        }
+    </div>
+
+</div>

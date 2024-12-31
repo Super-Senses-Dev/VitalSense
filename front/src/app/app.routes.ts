@@ -20,14 +20,14 @@ export const routes: Routes = [
                 path: 'pictures',
                 component: PicturesComponent
             },
-            {
-                path: '404',
-                component: NotFoundComponent,
-            },
-            {
-                path: '**',
-                redirectTo: '404',
-            }
         ]
+    },
+    {
+        path: '404',
+        component: NotFoundComponent,
+    },
+    {
+        path: '**',
+        redirectTo: '404',
     }
 ];
