@@ -22,7 +22,6 @@ export class BackendService {
   extractTemperature(image: File) {
     const formData = new FormData();
     formData.append('file', image);
-    console.log({'apiUel': environment.apiUrl})
     return lastValueFrom(this.httpClient.post(`${environment.apiUrl}/extract/extractTemperature`, formData));
   }
 
