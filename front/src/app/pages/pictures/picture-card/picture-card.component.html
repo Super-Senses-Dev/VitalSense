@@ -21,10 +21,7 @@
             <div class="img-details" [ngClass]="{'manual': isManualAdd}">
                 <div class="img-details-header">
                     <div class="d-flex justify-content-between">
-                        <div class="measure-date">
-                            <input [disabled]="!editing" type="datetime-local" class="measure-date"
-                                [(ngModel)]="formattedMeasureDate" (ngModelChange)="onMeasureDateChange($event)">
-                        </div>
+                        <div></div>
                         <div *ngIf="!editing" class="edit-btn-container">
                             <button class="edit-button" title="{{'edit' | translate}}" (click)="onEditClicked()">
                                 ✏️
@@ -33,15 +30,28 @@
                     </div>
                 </div>
 
-                <div *ngIf="editedThermo && editedThermo.temperature" class="measures-container">
-                    <div class="d-flex justify-content-between measure-row">
+                <div *ngIf="editedThermo" class="measures-container">
+
+                    <div class="measure-box">
                         <div class="measure-title">
+                            <span>🕒</span>
+                            {{'Measure date' | translate}}
+                        </div>
+                        <div class="measure-date">
+                            <input [disabled]="!editing" type="datetime-local" class="measure-date"
+                                [(ngModel)]="formattedMeasureDate" (ngModelChange)="onMeasureDateChange($event)">
+                        </div>
+                    </div>
+
+                    <div class="measure-box">
+                        <div class="measure-title">
+                            <span>🌡️</span>
                             {{'temperature' | translate}}
                         </div>
                         <div class="measure-value">
                             <input [disabled]="!editing" type="number" [(ngModel)]="editedThermo.temperature"
                                 (ngModelChange)="onMeasureValueChange($event)">
-                            <img *ngIf="editedThermo.temperature == null" src="icons/incorrect.png">
+                            <span>°C</span>
                         </div>
                     </div>
                 </div>

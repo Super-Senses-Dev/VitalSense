@@ -32,7 +32,12 @@ export class AppComponent {
     } else {
       // Otherwise, use the browser language
       const browserLang = this.translate.getBrowserLang() ?? 'en';
-      this.translate.use(browserLang);
+      if (browserLang === 'fr' || browserLang === 'en') {
+        this.translate.use(browserLang);
+      } else {
+        // If the browser language is not supported, use English
+        this.translate.use('en');
+      }
     }
   }
 }

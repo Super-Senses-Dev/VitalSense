@@ -1,0 +1,34 @@
+<form [formGroup]="parentChildForm" (ngSubmit)="onSubmit()">
+
+    <div class="mb-4 mt-4">
+        <h3><span>👩🏻 </span> {{ 'parent-information' | translate }}</h3>
+        <div class="form-group mb-2">
+            <label for="parentName">{{'form-name' | translate}}</label>
+            <input type="text" id="parentName" formControlName="parentName" class="form-control">
+        </div>
+        <div class="form-group mb-2">
+            <label for="parentContact">{{ 'contact-number' | translate }}</label>
+            <input type="tel" id="parentContact" formControlName="parentContact" class="form-control">
+        </div>
+    </div>
+
+
+    <div class="mb-4">
+        <h3><span>👦🏻 </span> {{ 'child-information' | translate }}</h3>
+        <div class="form-group mb-2">
+            <label for="childName">{{'form-name' | translate}}</label>
+            <input type="text" id="childName" formControlName="childName" class="form-control">
+        </div>
+        <div class="form-group mb-2">
+            <label for="childAge">{{'form-age' | translate}}</label>
+            <input type="number" id="childAge" formControlName="childAge" class="form-control">
+        </div>
+        <div class="form-group mb-2">
+            <label for="childMedicalCondition">{{ 'notes-medical-condition' | translate }}</label>
+            <textarea id="childMedicalCondition" formControlName="childMedicalCondition"
+                class="form-control"></textarea>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">{{ 'submit' | translate }}</button>
+</form>

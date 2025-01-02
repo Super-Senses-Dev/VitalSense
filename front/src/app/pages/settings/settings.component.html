@@ -1,0 +1,10 @@
+<div class="form-group m-4">
+    <label for="languageSelect">
+        <span>🌍</span>
+        {{ 'select-language' | translate }}
+    </label>
+    <select class="form-select" [(ngModel)]="selectedLanguage" (ngModelChange)="onLanguageChange()">
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+    </select>
+</div>

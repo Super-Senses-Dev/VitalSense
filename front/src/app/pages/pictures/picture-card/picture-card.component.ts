@@ -1,7 +1,7 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Thermo } from '../../../interfaces/thermo';
 import { HelperService } from '../../../services/helper.service';
 
@@ -35,7 +35,7 @@ export class PictureCardComponent implements OnInit {
 
   helperService = inject(HelperService);
   datePipe = inject(DatePipe);
-  translateService = inject(TranslateModule);
+  translate = inject(TranslateService);
 
   ngOnInit(): void {
     this.toDate = this.helperService.toDate;
@@ -44,7 +44,7 @@ export class PictureCardComponent implements OnInit {
     if (this.thermo) {
       this.editedThermo = JSON.parse(JSON.stringify(this.thermo));
       this.editedThermo!.measureDate = new Date(this.thermo.measureDate);
-      this.formattedMeasureDate = this.datePipe.transform(this.editedThermo?.measureDate, 'dd/MM/yyyy, HH:mm') ?? '';
+      this.formattedMeasureDate = this.datePipe.transform(this.editedThermo?.measureDate, 'yyyy-MM-dd HH:mm') ?? '';
     }
 
     if (this.isManualAdd) {
@@ -57,7 +57,10 @@ export class PictureCardComponent implements OnInit {
    * Emit the delete event
    */
   onDelete() {
-    this.delete.emit(this.thermo);
+    if (confirm(this.translate.instant('are-you-sure-you-want-to-delete-this-measure'))) {
+      this.delete.emit(this.thermo);
+    }
+    
   }
 
 
@@ -116,7 +119,10 @@ export class PictureCardComponent implements OnInit {
     }
     this.editedThermo!.isDetected = isDetected;
 
-    // Todo: Update the thermo measure in localstorage
+    // Update the thermo measure in localstorage
+    this.editLoading = true;
+    this.edit.emit(this.editedThermo!);
+    this.editLoading = false;
   }
 
 

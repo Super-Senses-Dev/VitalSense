@@ -11,8 +11,8 @@
                 <img src="icons/thermo-pic-icon.png" alt="pictures">
                 <span>{{'Pictures' | translate}}</span>
             </a>
-            <a mat-list-item routerLink="/profile" (click)="onMenuClick()" routerLinkActive #profile="routerLinkActive"
-                [ngClass]="{'link-active': profile.isActive}">
+            <a mat-list-item routerLink="/parent-child-profile" (click)="onMenuClick()" routerLinkActive
+                #profile="routerLinkActive" [ngClass]="{'link-active': profile.isActive}">
                 <img src="icons/profile-icon.png" alt="profile">
                 <span>{{'Parent and child profile' | translate}}</span>
             </a>

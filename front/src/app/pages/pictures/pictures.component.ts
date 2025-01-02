@@ -11,6 +11,7 @@ import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { BackendService } from '../../services/backend.service';
 import { v4 as uuidv4 } from 'uuid';
 import { LocalstorageService } from '../../services/localstorage.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-pictures',
@@ -22,6 +23,7 @@ import { LocalstorageService } from '../../services/localstorage.service';
     MatProgressBarModule,
     PictureCardComponent,
     MatFormFieldModule,
+    MatSnackBarModule
   ],
   templateUrl: './pictures.component.html',
   styleUrl: './pictures.component.scss'
@@ -34,8 +36,9 @@ export class PicturesComponent implements OnInit {
   imageCompress = inject(NgxImageCompressService);
   backendService = inject(BackendService);
   localStorageService = inject(LocalstorageService);
+  snackBar = inject(MatSnackBar);
 
-  imageIsDetectedFilter: boolean | string = '';
+  imageIsDetectedFilter?: boolean;
   picturesList: Array<Thermo> = [];
   loadingPictures = false;
   isPreProcessing = false;
@@ -66,20 +69,19 @@ export class PicturesComponent implements OnInit {
     this.loadingPictures = true;
     try {
       this.picturesList = this.localStorageService.getMeasuresFromLocalStorage();
-    } catch(e) {
+    } catch (e) {
       console.error(e);
-      // Todo: Show error message
+      this.translate.get(['error-while-loading-pictures', 'close']).subscribe((res: any) => {
+        this.snackBar.open('❌ ' + res['error-while-loading-pictures'], res['close'], {
+          duration: 5000,
+          horizontalPosition: 'end',
+          verticalPosition: 'bottom',
+        });
+      });
+
     }
     this.loadingPictures = false;
-    
-  }
 
-
-  /**
-   * On add measures manually
-   */
-  onAddManually() {
-    console.log('// Todo Adding measures manually');
   }
 
 
@@ -112,7 +114,12 @@ export class PicturesComponent implements OnInit {
 
         // See if the user is trying to add more photos than the limit
         if (this.picturesList.length + fileArray.length > this.limit) {
-          // Todo: show error message
+          this.snackBar.open('❌ ' + this.translate.instant('you-can-only-add-a-maximum-of', { limit: this.limit }),
+            this.translate.instant('close'), {
+            duration: 5000,
+            horizontalPosition: 'end',
+            verticalPosition: 'bottom',
+          });
           console.error('You can only add a maximum of ' + this.limit + ' pictures');
           return;
         }
@@ -167,8 +174,13 @@ export class PicturesComponent implements OnInit {
 
         if (tempPicturesList.length == 0) {
           console.error('No valid images found');
+          // Show error message
+          this.snackBar.open('❌ ' + this.translate.instant('no-valid-images-found'), this.translate.instant('close'), {
+            duration: 5000,
+            horizontalPosition: 'end',
+            verticalPosition: 'bottom',
+          });
           return;
-          // Todo: Show error message
         }
 
         // Extract the measures from pictures
@@ -176,8 +188,14 @@ export class PicturesComponent implements OnInit {
 
 
       } catch (e) {
+        this.isPreProcessing = false;
         console.error(e);
-        // Todo: Show error message
+        // Show error message
+        this.snackBar.open('❌ ' + this.translate.instant('error-while-processing-images'), this.translate.instant('close'), {
+          duration: 5000,
+          horizontalPosition: 'end',
+          verticalPosition: 'bottom',
+        });
       }
     }
 
@@ -228,7 +246,12 @@ export class PicturesComponent implements OnInit {
     this.localStorageService.saveMeasuresToLocalStorage(this.picturesList);
 
     this.isDetecting = false;
-    // Todo: show success message
+    // Show success message
+    this.snackBar.open('✔️ ' + this.translate.instant('measures-extraction-completed'), this.translate.instant('close'), {
+      duration: 5000,
+      horizontalPosition: 'end',
+      verticalPosition: 'bottom',
+    });
   }
 
 
@@ -238,7 +261,7 @@ export class PicturesComponent implements OnInit {
    * @returns 
    */
   shouldDisplayPicture(picture: Thermo) {
-    if (this.imageIsDetectedFilter === '') {
+    if (this.imageIsDetectedFilter == null) {
       return true;
     }
     return picture.isDetected === this.imageIsDetectedFilter;
@@ -265,13 +288,17 @@ export class PicturesComponent implements OnInit {
       }
       return p;
     });
+    this.localStorageService.saveMeasuresToLocalStorage(this.picturesList);
   }
 
 
+  /**
+   * On delete picture
+   * @param deletedPicture 
+   */
   onDeletePicture(deletedPicture: Thermo) {
-    console.log('Deleting picture', deletedPicture);
-    console.log('//Todo: Show confirmation popup and Delete picture from local storage');
-    // this.picturesList = this.picturesList.filter(p => p.id !== deletedPicture.id);
+    this.picturesList = this.picturesList.filter(p => p.id !== deletedPicture.id);
+    this.localStorageService.saveMeasuresToLocalStorage(this.picturesList);
   }
 
 

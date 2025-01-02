@@ -46,9 +46,9 @@ async function extractMeasurements(req, res) {
         const responseBody = response.data;
         let resultContent = responseBody.choices[0].message.content;
 
-        // Replace the ```json``` with simple quotes
-        resultContent = resultContent.replaceAll('```json', '\'');
-        resultContent = resultContent.replaceAll('```', '\'');
+        // Remove the ```json```
+        resultContent = resultContent.replaceAll('```json', '');
+        resultContent = resultContent.replaceAll('```', '');
 
         // Find out if the response is a valid json string
         if (!isValidJsonString(resultContent)) {

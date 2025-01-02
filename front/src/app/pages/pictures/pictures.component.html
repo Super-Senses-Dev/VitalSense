@@ -4,11 +4,11 @@
         <div class="form-group">
             <label for="status">{{'status' | translate}}</label>
             <select id="status" class="form-select" [(ngModel)]="imageIsDetectedFilter">
-                <option value="">{{'all_images'| translate}}</option>
-                <option [value]="true">
+                <option [ngValue]="undefined">{{'all_images'| translate}}</option>
+                <option [ngValue]="true">
                     <span class="ms-1">✔️ {{'detected'| translate}}</span>
                 </option>
-                <option [value]="false">
+                <option [ngValue]="false">
                     <span class="ms-2">❌ {{'undetected'| translate}}</span>
                 </option>
             </select>
