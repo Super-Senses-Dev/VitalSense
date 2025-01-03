@@ -51,7 +51,7 @@ export class ParentChildProfileComponent implements OnInit {
         horizontalPosition: 'end',
       });
     } else {
-      this.snackBar.open('❌ ' + this.translate.instant('please-fill-in-all-required-fields'), this.translate.instant('close'), {
+      this.snackBar.open('⚠️ ' + this.translate.instant('please-fill-in-all-required-fields'), this.translate.instant('close'), {
         duration: 5000
       });
     }

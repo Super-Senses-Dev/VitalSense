@@ -2,4 +2,8 @@
     <apx-chart [series]="apexSeries" [chart]="apexChart" [xaxis]="apexXAxis" [legend]="apexLegend" [fill]="apexFill"
         [grid]="apexGrid" [dataLabels]="apexDataLabel" [markers]="apexMarkers" [title]="apexTitle" [subtitle]="apexSubtitle"
         [stroke]="apexStroke"></apx-chart>
+    <div class="no-data" *ngIf="!apexSeries[0].data.length">
+        <img src="icons/empty.png" alt="no data">
+        <div>{{ 'no-data' | translate }}</div>
+    </div>
 </div>

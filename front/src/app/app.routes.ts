@@ -13,8 +13,6 @@ export const routes: Routes = [
         pathMatch: 'full'
     },
 
-    // Todo: route for generating pdf
-
     {
         path: '',
         component: LayoutComponent,

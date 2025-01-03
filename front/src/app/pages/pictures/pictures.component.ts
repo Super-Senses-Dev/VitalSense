@@ -49,9 +49,6 @@ export class PicturesComponent implements OnInit {
 
   addingMeasureManually = false;
 
-  // Limit for the total numbers of pictures to display
-  limit = 20;
-
   ngOnInit(): void {
     this.getPicturesList();
   }
@@ -72,7 +69,7 @@ export class PicturesComponent implements OnInit {
     } catch (e) {
       console.error(e);
       this.translate.get(['error-while-loading-pictures', 'close']).subscribe((res: any) => {
-        this.snackBar.open('❌ ' + res['error-while-loading-pictures'], res['close'], {
+        this.snackBar.open('⚠️ ' + res['error-while-loading-pictures'], res['close'], {
           duration: 5000,
           horizontalPosition: 'end',
           verticalPosition: 'bottom',
@@ -111,18 +108,6 @@ export class PicturesComponent implements OnInit {
         const files = input.files;
         const tempPicturesList: any[] = [];
         const fileArray = Array.from(files);
-
-        // See if the user is trying to add more photos than the limit
-        if (this.picturesList.length + fileArray.length > this.limit) {
-          this.snackBar.open('❌ ' + this.translate.instant('you-can-only-add-a-maximum-of', { limit: this.limit }),
-            this.translate.instant('close'), {
-            duration: 5000,
-            horizontalPosition: 'end',
-            verticalPosition: 'bottom',
-          });
-          console.error('You can only add a maximum of ' + this.limit + ' pictures');
-          return;
-        }
 
         // Pre-process the images
         // Test if the files are images and compress them
@@ -175,7 +160,7 @@ export class PicturesComponent implements OnInit {
         if (tempPicturesList.length == 0) {
           console.error('No valid images found');
           // Show error message
-          this.snackBar.open('❌ ' + this.translate.instant('no-valid-images-found'), this.translate.instant('close'), {
+          this.snackBar.open('⚠️ ' + this.translate.instant('no-valid-images-found'), this.translate.instant('close'), {
             duration: 5000,
             horizontalPosition: 'end',
             verticalPosition: 'bottom',
@@ -191,7 +176,7 @@ export class PicturesComponent implements OnInit {
         this.isPreProcessing = false;
         console.error(e);
         // Show error message
-        this.snackBar.open('❌ ' + this.translate.instant('error-while-processing-images'), this.translate.instant('close'), {
+        this.snackBar.open('⚠️ ' + this.translate.instant('error-while-processing-images'), this.translate.instant('close'), {
           duration: 5000,
           horizontalPosition: 'end',
           verticalPosition: 'bottom',
@@ -210,6 +195,7 @@ export class PicturesComponent implements OnInit {
     this.isDetecting = true;
     this.picturesWaitingForDetection = pictures.length;
     this.picturesDone = 0;
+    let limitReached = false;
 
     for (let thermoPicture of pictures) {
       let temperature;
@@ -222,9 +208,19 @@ export class PicturesComponent implements OnInit {
         if (resDetect.unit.toLowerCase().includes('f')) {
           temperature = (temperature - 32) * 5 / 9;
         }
-      } catch (e) {
+      } catch (e: any) {
         console.error('Error on extracting/uploading measures', e);
         isDetected = false;
+        // See if the response status code is 429 (too many requests), show an error and stop the loop
+        if (e.status == 429) {
+          this.snackBar.open('⚠️ ' + this.translate.instant('too-many-requests-please-try-again-later'), this.translate.instant('Ok'), {
+            horizontalPosition: 'end',
+            verticalPosition: 'bottom',
+          });
+          this.isDetecting = false;
+          limitReached = true;
+          break;
+        }
       }
 
       // Add the picture to the list
@@ -246,12 +242,14 @@ export class PicturesComponent implements OnInit {
     this.localStorageService.saveMeasuresToLocalStorage(this.picturesList);
 
     this.isDetecting = false;
-    // Show success message
-    this.snackBar.open('✔️ ' + this.translate.instant('measures-extraction-completed'), this.translate.instant('close'), {
-      duration: 5000,
-      horizontalPosition: 'end',
-      verticalPosition: 'bottom',
-    });
+    if (!limitReached) {
+      // Show success message
+      this.snackBar.open('✔️ ' + this.translate.instant('measures-extraction-completed'), this.translate.instant('close'), {
+        duration: 5000,
+        horizontalPosition: 'end',
+        verticalPosition: 'bottom',
+      });
+    }
   }
 
 

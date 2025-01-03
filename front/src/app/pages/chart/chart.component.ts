@@ -4,13 +4,15 @@ import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexFill, ApexGrid, Ape
 import { LocalstorageService } from '../../services/localstorage.service';
 import frApexChart from 'apexcharts/dist/locales/fr.json';
 import enApexChart from 'apexcharts/dist/locales/en.json';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-chart',
   standalone: true,
   imports: [
     TranslateModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    CommonModule
   ],
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.scss'

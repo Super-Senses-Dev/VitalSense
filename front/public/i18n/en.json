@@ -46,5 +46,8 @@
   "parent": "Parent",
   "contact": "Contact",
   "note": "Note",
-  "icons-from": "Icons from:"
+  "icons-from": "Icons from:",
+  "too-many-requests-please-try-again-later": "You've hit the limit of processed pictures. To ensure the demo version remains running, we will disable your requests for a short time. Please come back later and try again.",
+  "Ok": "OK",
+  "no-data": "No data"
 }

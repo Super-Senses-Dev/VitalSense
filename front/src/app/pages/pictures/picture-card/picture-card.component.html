@@ -1,6 +1,6 @@
 <div class="img-card" [ngClass]="{'manual': isManualAdd}">
     <div class="row">
-        <!-- Picture with delete button (and error badge) -->
+        <!-- Thermometer picture with delete button (and error badge) -->
         <div *ngIf="!isManualAdd" class="col-sm-6">
             <div class="img-container" [ngClass]="{'manual': editedThermo?.isManual}"
                 [ngStyle]="{'background-image':'url(' + editedThermo?.imgBase64 + ')'}">
