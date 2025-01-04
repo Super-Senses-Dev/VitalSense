@@ -1,17 +1,18 @@
-# Vital Sense Demo
-![Vital Sense: Caring for little souls](https:)
+# Vital Sense
+![Vital Sense: Caring for little souls](https://supersenses.tn/vital-sense-demo/images/logo.png)
 ## Project Overview
-Vital Sense Demo is a project designed to showcase the [Super Senses](https://supersenses.tn) solution "Vital Sense".
+This project is a demo to showcase the [Super Senses](https://supersenses.tn) solution "Vital Sense".
+
 Vital Sense is a health-focused platform that allows parents to monitor their child's body temperature over time. Using advanced AI techniques, the app processes uploaded pictures of temperature measurements and extracts the values to generate a graphical report. This report can be shared with health professionals for better medical assessment.
 
 ## Features
-- Image-Based Temperature Extraction: Parents can upload images of temperature measurements, and the system will automatically extract the temperature data.
-- Graph Generation: The extracted temperature data is displayed in a clear graph that can be downloaded and shared with health professionals.
-- Data Privacy: All data and images are stored only in the browser's local storage. Pictures are sent to the server only for processing and are not stored.
-- Bilingual Interface: The application supports both English and French.
+- ✨ Image-Based Temperature Extraction: Parents can upload images of temperature measurements, and the system will automatically extract the temperature data.
+- 📈 Graph Generation: The extracted temperature data is displayed in a clear graph that can be downloaded and shared with health professionals.
+- 🔒 Data Privacy: All data and images are stored exclusively in the browser’s local storage. Pictures are sent to the server solely for processing and are not retained.
+- 🌐 Bilingual Interface: The application supports both English and French.
 
 ## Demo
-Check out the live demo [here](http://example.com/demo).
+Check out the live demo [here](https://supersenses.tn/vital-sense-demo).
 
 ## Technology Stack
 - Frontend: Angular 18.
@@ -25,11 +26,11 @@ Check out the live demo [here](http://example.com/demo).
 
 Clone the repository:
 ```sh
-git clone https://github.com/yourusername/supersense-demo-vital-sense.git
+git clone https://github.com/Super-Senses-Dev/VitalSense.git
 ```
 Navigate to the project directory:
 ```sh
-cd supersense-demo-vital-sense
+cd VitalSense
 ```
 
 ### Backend
