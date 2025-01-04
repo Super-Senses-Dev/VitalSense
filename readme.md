@@ -46,9 +46,9 @@ cd VitalSense
 
 4. Copy the content of `.sample_env` to `.env` file
 
-5. Make sure to affect the value of `OPENAI_TOKEN` in `.env` file by your own key.
+5. Make sure to set the value of `OPENAI_TOKEN` in the `.env` file to your own key.
 
-6. Run the backend:
+6. Run Node.js:
     ```sh
     node index
     ```
